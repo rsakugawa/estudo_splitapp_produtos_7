@@ -1,0 +1,136 @@
+<mvc:View controllerName="estudosplitappprodutos.controller.View1"
+    xmlns:mvc="sap.ui.core.mvc"
+    displayBlock="true"
+    xmlns="sap.m">
+  <!-- Shell é a tela de fundo-->   
+    <Shell id="shell"> 
+        <SplitApp id="app"> 
+ <!-- Inicio - Agregação 1- masterPages-->        
+            <masterPages>
+                <Page id="page"
+                    title="Produtos">
+
+                    <subHeader> 
+                        <Toolbar>
+                        <!-- SearchHelp para seleção na lista-->
+                            <SearchField liveChange="onLiveChange"/> 
+                        </Toolbar>
+                    </subHeader>
+
+                    <content>
+                        <List id="list"
+                            items="{
+                                path: '/Products',
+                                suspended: false
+                            }"
+                            growing="true"
+                            growingScrollToLoad="true"
+                            growingThreshold="10"
+                            itemPress="onItemPress">
+
+                            <items>
+                            <!-- ObjectListItem é melhor que o StandarLisItem
+                            porque é possível colocar mais informações -->
+                                <ObjectListItem type="Navigation"
+                                    intro="{Id}"
+                                    title="{Name}"
+                                    icon="{ImageUrl}"
+                                    number="{Price}"
+                                    numberUnit="{CurrencyCode}">
+                                    <attributes>
+                                        <ObjectAttribute title="Peso"
+                                            text="{WeightMeasure} {WeightUnit}"/>
+                                        <ObjectAttribute title="Categoria"
+                                            text="{MainCategoryName}"/>
+                                    </attributes>
+                                    <markers>
+                                    <!-- varios tipos de ícones..flagged ..locked etc -->
+                                        <ObjectMarker type="Favorite" 
+                                            visible="{IsFavoriteOfCurrentUser}">
+                                        </ObjectMarker>
+                                    </markers>
+                                </ObjectListItem>
+                            </items>
+                        </List>
+                    </content>
+                </Page>
+            </masterPages>
+<!-- Fim - Agregação 1 - masterPages -->             
+<!-- Inicio - Agregação 2 - detailPages page-detail-->         
+            <detailPages>
+                <Page id="page-detail"
+                    title="Detalhes">
+                    <content>
+                    <!--ObjectHeader é bem parecido com  ObjectListItem-->
+                        <ObjectHeader id = "header" intro="{Id}"
+                            title="{Name}"
+                            icon="{ImageUrl}"
+                            number="{Price}"
+                            numberUnit="{CurrencyCode}">
+                            <attributes>
+                                <ObjectAttribute title="Peso"
+                                    text="{WeightMeasure} {WeightUnit}"/>
+                                <ObjectAttribute title="Categoria"
+                                    text="{MainCategoryName}"/>
+                            </attributes>
+                            <markers>
+                                <ObjectMarker type="Favorite"
+                                    visible="{IsFavoriteOfCurrentUser}">
+                                </ObjectMarker>
+                            </markers>
+                        </ObjectHeader>
+
+                        <!--ReviewAggregates sem o '/'..pq será feito o filtro no controller-->
+                        <!--se colocar /ReviewAggregates vem todos os valores do entityset-->
+                        <Table items="{ReviewAggregates}">
+                            <columns>
+                                 <Column>
+                                    <header>
+                                        <Label text="Produto" />
+                                    </header>
+                                </Column> 
+                                <Column>
+                                    <header>
+                                        <Label text="Nota"/>
+                                    </header>
+                                </Column>
+                                <Column>
+                                    <header>
+                                        <Label text="Quantidade"/>
+                                    </header>
+                                </Column>
+                            </columns>
+                            <items>
+                                <ColumnListItem>
+                                    <cells>
+                                        <Text text="{ProductId}" />
+                                        <RatingIndicator value="{Rating}"/>
+                                        <ObjectNumber number="{RatingCount}"/>
+                                    </cells>
+                                </ColumnListItem>
+                            </items>
+                        </Table>
+                       <!--Início - VBOx para input de dados-->
+                       <VBox >
+                       <items>
+                       <RatingIndicator id = "rating"/>
+                       <TextArea id = "comment"/>
+                       <Button icon="sap-icon://save" press="onSubmitReview"/>
+                       </items>
+                       </VBox>
+                       <!--Início - VBOx para input de dados-->  
+                    </content>
+                    <footer>
+                        <Toolbar>
+                            <content>
+                                <ToolbarSpacer/>
+                                <ToggleButton press = "onFavorite" icon="sap-icon://favorite"/>
+                            </content>
+                        </Toolbar>
+                    </footer>
+                </Page>
+            </detailPages>
+<!-- Fim - Agregação 2 - detailPages-->         
+        </SplitApp>
+    </Shell>
+</mvc:View>
