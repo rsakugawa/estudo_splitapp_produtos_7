@@ -2,7 +2,7 @@
     xmlns:mvc="sap.ui.core.mvc"
     displayBlock="true"
     xmlns="sap.m">
-  <!-- Shell é a tela de fundo-->   
+  <!-- Shell é a tela de fundo.-->   
     <Shell id="shell"> 
         <SplitApp id="app"> 
  <!-- Inicio - Agregação 1- masterPages-->        
